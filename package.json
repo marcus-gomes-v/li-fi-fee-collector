@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "This project is a take-home assignment for the Senior Backend Engineer role at LI.FI. It involves building a tool to scrape emitted events from a smart contract, store them in a MongoDB database, and provide an API to retrieve the events. The project is structured using SOLID principles and various design patterns to ensure clean, maintainable, and scalable code.",
   "scripts": {
+    "start": "tsc && node dist/server.js",
+    "dev": "ts-node-dev src/server.ts",
     "test": "jest"
   },
   "jest": {
@@ -32,12 +34,14 @@
     "dotenv": "^16.4.5",
     "ethers": "^6.12.1",
     "express": "^4.19.2",
-    "mongoose": "^8.4.0"
+    "mongoose": "^8.4.0",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.12",
+    "@types/supertest": "^6.0.2",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
