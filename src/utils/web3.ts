@@ -14,4 +14,4 @@ class Web3Provider {
   }
 }
 
-export default Web3Provider.getInstance();
+export { Web3Provider };
