@@ -1,16 +1,15 @@
 import mongoose from 'mongoose';
 import config from '../config';
 
-class MongoDBAdapter {
+export class MongoDBAdapter {
   private static instance: MongoDBAdapter;
 
-  private constructor() {
-    this.connect();
-  }
+  private constructor() { }
 
   public static getInstance(): MongoDBAdapter {
     if (!MongoDBAdapter.instance) {
       MongoDBAdapter.instance = new MongoDBAdapter();
+      MongoDBAdapter.instance.connect();
     }
     return MongoDBAdapter.instance;
   }
@@ -23,6 +22,9 @@ class MongoDBAdapter {
       console.error('MongoDB connection error:', error);
     }
   }
-}
 
-export { MongoDBAdapter };
+  public async disconnect() {
+    await mongoose.disconnect();
+    console.log('MongoDB disconnected');
+  }
+}
