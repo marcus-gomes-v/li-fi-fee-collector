@@ -25,6 +25,7 @@ describe('Fees Repository', () => {
         integrator: 'example-integrator',
         integratorFee: BigNumber.from(1000),
         lifiFee: BigNumber.from(100),
+        blockNumber: 123456,
       },
     ];
     await saveFeeEvents(events);
@@ -37,6 +38,7 @@ describe('Fees Repository', () => {
       integrator: 'example-integrator',
       integratorFee: BigNumber.from(1000),
       lifiFee: BigNumber.from(100),
+      blockNumber: 123456,
     });
   });
 
@@ -49,5 +51,6 @@ describe('Fees Repository', () => {
     expect(events[0]).toHaveProperty('integrator');
     expect(events[0]).toHaveProperty('integratorFee');
     expect(events[0]).toHaveProperty('lifiFee');
+    expect(events[0]).toHaveProperty('blockNumber');
   });
 });

@@ -27,6 +27,7 @@ export const parseFeeCollectorEvents = (events: ethers.Event[]): ParsedFeeCollec
       integrator,
       integratorFee: ethers.BigNumber.from(integratorFee),
       lifiFee: ethers.BigNumber.from(lifiFee),
+      blockNumber: event.blockNumber // Add this line
     };
   });
 };

@@ -18,6 +18,7 @@ class EventFactory {
       integrator,
       integratorFee: ethers.BigNumber.from(integratorFee),
       lifiFee: ethers.BigNumber.from(lifiFee),
+      blockNumber: event.blockNumber // Add this line
     };
   }
 }

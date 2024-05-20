@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { BigNumber, Event } from 'ethers';
 import EventFactory from '../fees.event.factory';
 import { ParsedFeeCollectedEvents } from '../fees.dto';
 
@@ -9,15 +9,16 @@ describe('Fee Event Factory', () => {
       '0xIntegratorAddress',
       '1000',
       '2000',
-    ]);
+    ], 123456);
 
     const result: ParsedFeeCollectedEvents = EventFactory.createEvent(event);
 
     expect(result).toEqual({
       token: '0xTokenAddress',
       integrator: '0xIntegratorAddress',
-      integratorFee: ethers.BigNumber.from('1000'),
-      lifiFee: ethers.BigNumber.from('2000'),
+      integratorFee: BigNumber.from('1000'),
+      lifiFee: BigNumber.from('2000'),
+      blockNumber: 123456 
     });
   });
 
@@ -62,23 +63,24 @@ describe('Fee Event Factory', () => {
     const event = createMockEvent([
       '0xTokenAddress',
       '0xIntegratorAddress',
-      ethers.BigNumber.from('1000'),
-      ethers.BigNumber.from('2000'),
-    ]);
+      BigNumber.from('1000'),
+      BigNumber.from('2000'),
+    ], 123456);
 
     const result: ParsedFeeCollectedEvents = EventFactory.createEvent(event);
 
     expect(result).toEqual({
       token: '0xTokenAddress',
       integrator: '0xIntegratorAddress',
-      integratorFee: ethers.BigNumber.from('1000'),
-      lifiFee: ethers.BigNumber.from('2000'),
+      integratorFee: BigNumber.from('1000'),
+      lifiFee: BigNumber.from('2000'),
+      blockNumber: 123456 
     });
   });
 });
 
-// Helper function to create a mock ethers.Event
-function createMockEvent(args: any[] | undefined): ethers.Event {
+// Helper function to create a mock Event
+function createMockEvent(args: any[] | undefined, blockNumber: number = 0): Event {
   return {
     args: args,
     removeListener: jest.fn(),
@@ -92,10 +94,10 @@ function createMockEvent(args: any[] | undefined): ethers.Event {
     transactionIndex: 0,
     transactionHash: "",
     blockHash: "",
-    blockNumber: 0,
+    blockNumber: blockNumber,
     getBlockNumber: jest.fn(),
     decode: jest.fn(),
     getTransactionResult: jest.fn(),
     decodeError: jest.fn()
-  } as unknown as ethers.Event;
+  } as unknown as Event;
 }

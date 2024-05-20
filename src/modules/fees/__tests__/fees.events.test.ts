@@ -39,5 +39,6 @@ describe('Fee Events', () => {
     expect(parsedEvents[0]).toHaveProperty('integrator');
     expect(parsedEvents[0]).toHaveProperty('integratorFee');
     expect(parsedEvents[0]).toHaveProperty('lifiFee');
+    expect(parsedEvents[0]).toHaveProperty('blockNumber');
   });
 });

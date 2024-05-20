@@ -8,6 +8,7 @@ class DatabaseFacade {
       integrator: event.integrator,
       integratorFee: event.integratorFee.toString(),
       lifiFee: event.lifiFee.toString(),
+      blockNumber: event.blockNumber
     })));
   }
 

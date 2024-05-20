@@ -22,6 +22,7 @@ describe('FeeEvent Model Test', () => {
       integrator: '0xIntegratorAddress',
       integratorFee: '1000',
       lifiFee: '2000',
+      blockNumber: 1000,
     });
 
     const savedFeeEvent = await feeEvent.save();
@@ -30,5 +31,6 @@ describe('FeeEvent Model Test', () => {
     expect(savedFeeEvent.integrator).toBe('0xIntegratorAddress');
     expect(savedFeeEvent.integratorFee).toBe('1000');
     expect(savedFeeEvent.lifiFee).toBe('2000');
+    expect(savedFeeEvent.blockNumber).toBe(1000);
   });
 });

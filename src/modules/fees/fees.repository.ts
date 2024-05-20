@@ -8,6 +8,7 @@ export const saveFeeEvents = async (events: ParsedFeeCollectedEvents[]): Promise
     integrator: event.integrator,
     integratorFee: event.integratorFee.toString(),
     lifiFee: event.lifiFee.toString(),
+    blockNumber: event.blockNumber // Add this line
   })));
 };
 
@@ -24,5 +25,6 @@ export const getFeeEventsByIntegrator = async (
     integrator: event.integrator,
     integratorFee: BigNumber.from(event.integratorFee),
     lifiFee: BigNumber.from(event.lifiFee),
+    blockNumber: event.blockNumber // Add this line
   }));
 };

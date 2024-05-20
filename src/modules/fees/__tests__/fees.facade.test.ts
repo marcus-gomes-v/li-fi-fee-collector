@@ -31,6 +31,7 @@ describe('Blockchain and Database Facades', () => {
         integrator: '0xIntegratorAddress',
         integratorFee: BigNumber.from('1000'),
         lifiFee: BigNumber.from('2000'),
+        blockNumber: 123456,
       },
     ];
     await DatabaseFacade.saveEvents(events);

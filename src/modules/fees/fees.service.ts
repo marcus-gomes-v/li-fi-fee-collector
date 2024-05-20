@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { BigNumber, providers } from 'ethers';
 import config from '../../config';
 import { loadFeeCollectorEvents, parseFeeCollectorEvents } from './fees.events';
 import { saveFeeEvents, getFeeEventsByIntegrator } from './fees.repository';
@@ -29,6 +29,10 @@ export const startEventPolling = async (): Promise<void> => {
   try {
     let lastProcessedBlock = await getLastProcessedBlock();
     if (lastProcessedBlock === null) {
+      lastProcessedBlock = config.INITIAL_BLOCK;
+    } else if (lastProcessedBlock > config.INITIAL_BLOCK) {
+      console.log(`Found a higher block (${lastProcessedBlock}). Starting from that block.`);
+    } else {
       lastProcessedBlock = config.INITIAL_BLOCK;
     }
 
@@ -61,12 +65,13 @@ export const retrieveEventsForIntegrator = async (
   return events.map(event => ({
     token: event.token,
     integrator: event.integrator,
-    integratorFee: ethers.BigNumber.from(event.integratorFee),
-    lifiFee: ethers.BigNumber.from(event.lifiFee)
+    integratorFee: BigNumber.from(event.integratorFee),
+    lifiFee: BigNumber.from(event.lifiFee),
+    blockNumber: event.blockNumber
   }));
 };
 
 const getLatestBlockNumber = async (): Promise<number> => {
-  const provider = new ethers.providers.JsonRpcProvider(config.POLYGON_RPC);
+  const provider = new providers.JsonRpcProvider(config.POLYGON_RPC);
   return provider.getBlockNumber();
 };

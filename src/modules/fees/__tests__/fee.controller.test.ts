@@ -40,7 +40,7 @@ describe('Fees Controller', () => {
   describe('GET /api/fees/events/:integrator', () => {
     it('should return events for the integrator', async () => {
       const mockEvents = [
-        { token: '0xTokenAddress', integrator: '0xIntegratorAddress', integratorFee: '1000', lifiFee: '2000' },
+        { token: '0xTokenAddress', integrator: '0xIntegratorAddress', integratorFee: '1000', lifiFee: '2000', blockNumber: 123456 },
       ];
       (feesService.retrieveEventsForIntegrator as jest.Mock).mockResolvedValueOnce(mockEvents);
 

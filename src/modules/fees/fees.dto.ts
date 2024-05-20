@@ -5,4 +5,5 @@ export interface ParsedFeeCollectedEvents {
   integrator: string;
   integratorFee: BigNumber;
   lifiFee: BigNumber;
+  blockNumber: number;
 }

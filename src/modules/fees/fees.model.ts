@@ -12,6 +12,9 @@ class FeeEvent {
 
   @prop({ required: true })
   lifiFee!: string;
+
+  @prop({ required: true })
+  blockNumber!: number;
 }
 
 const FeeEventModel = getModelForClass(FeeEvent);
