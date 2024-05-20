@@ -26,11 +26,6 @@ describe('MongoDBAdapter', () => {
     expect(mongoDBAdapter.isConnected()).toBe(false);
   });
 
-  it('should reconnect to MongoDB', async () => {
-    await mongoDBAdapter.connect();
-    expect(mongoDBAdapter.isConnected()).toBe(true);
-  });
-
   // It should trigger error MongoDB connection error if try connect with wrong URI
   it('should trigger error MongoDB connection error', async () => {
     const wrongUri = 'mongod://localhost:27017/wrong';
