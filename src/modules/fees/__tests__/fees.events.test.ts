@@ -1,5 +1,5 @@
 import { loadFeeCollectorEvents, parseFeeCollectorEvents } from '../fees.events';
-import { ethers } from 'ethers';
+import { BigNumber, Event } from 'ethers';
 
 jest.mock('../fees.events', () => ({
   ...jest.requireActual('../fees.events'),
@@ -7,16 +7,15 @@ jest.mock('../fees.events', () => ({
 }));
 
 describe('events', () => {
-  const mockEvents: ethers.Event[] = [
+  const mockEvents: Event[] = [
     {
-      args: {
-        _token: '0xTokenAddress',
-        _integrator: '0xIntegratorAddress',
-        _integratorFee: ethers.BigNumber.from(1000),
-        _lifiFee: ethers.BigNumber.from(100),
-      },
-      // Add other necessary properties if required
-    } as unknown as ethers.Event,
+      args: [
+        '0xTokenAddress',
+        '0xIntegratorAddress',
+        BigNumber.from(1000),
+        BigNumber.from(100),
+      ],
+    } as unknown as Event,
   ];
 
   beforeEach(() => {
@@ -32,7 +31,7 @@ describe('events', () => {
   });
 
   test('parseFeeCollectorEvents should parse raw events correctly', () => {
-    const rawEvents: ethers.Event[] = mockEvents;
+    const rawEvents: Event[] = mockEvents;
     const parsedEvents = parseFeeCollectorEvents(rawEvents);
     expect(parsedEvents).toBeInstanceOf(Array);
     expect(parsedEvents.length).toBe(rawEvents.length);

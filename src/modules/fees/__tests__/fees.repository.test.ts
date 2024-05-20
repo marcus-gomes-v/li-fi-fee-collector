@@ -1,6 +1,6 @@
 import { saveFeeEvents, getFeeEventsByIntegrator } from '../fees.repository';
 import { ParsedFeeCollectedEvents } from '../fees.dto';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
@@ -23,26 +23,26 @@ describe('repository', () => {
       {
         token: '0xTokenAddress',
         integrator: 'example-integrator',
-        integratorFee: ethers.BigNumber.from(1000),
-        lifiFee: ethers.BigNumber.from(100),
+        integratorFee: BigNumber.from(1000),
+        lifiFee: BigNumber.from(100),
       },
     ];
     await saveFeeEvents(events);
 
-    const savedEvents = await getFeeEventsByIntegrator('example-integrator');
+    const savedEvents = await getFeeEventsByIntegrator('example-integrator', 1, 10);
     expect(savedEvents).toBeInstanceOf(Array);
     expect(savedEvents.length).toBe(1);
     expect(savedEvents[0]).toMatchObject({
       token: '0xTokenAddress',
       integrator: 'example-integrator',
-      integratorFee: ethers.BigNumber.from(1000).toString(),
-      lifiFee: ethers.BigNumber.from(100).toString(),
+      integratorFee: BigNumber.from(1000),
+      lifiFee: BigNumber.from(100),
     });
   });
 
   test('getFeeEventsByIntegrator should retrieve events for a given integrator', async () => {
     const integrator = 'example-integrator';
-    const events = await getFeeEventsByIntegrator(integrator);
+    const events = await getFeeEventsByIntegrator(integrator, 1, 10);
     expect(events).toBeInstanceOf(Array);
     expect(events.length).toBe(1);  // Adjust this based on the actual number of events
     expect(events[0]).toHaveProperty('token');
