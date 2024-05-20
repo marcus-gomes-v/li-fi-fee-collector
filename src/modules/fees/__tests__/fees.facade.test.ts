@@ -1,5 +1,5 @@
-import BlockchainFacade from '../blockchainFacade';
-import DatabaseFacade from '../databaseFacade';
+import BlockchainFacade from '../../../blockchain/blockchainFacade';
+import DatabaseFacade from '../fees.database.facade';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { BigNumber } from 'ethers';
@@ -29,7 +29,7 @@ describe('Blockchain and Database Facades', () => {
       {
         token: '0xTokenAddress',
         integrator: '0xIntegratorAddress',
-        integratorFee: BigNumber.from('1000'), 
+        integratorFee: BigNumber.from('1000'),
         lifiFee: BigNumber.from('2000'),
       },
     ];

@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  fee-collector-backend:
+    image: node:20.11.1
+    working_dir: /app
+    container_name: fee-collector-backend
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    command: "npm run docker:dev"
+    ports:
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - .:/app
+
+  mongo:
+    image: mongo:4.2.0
+    ports:
+      - 27017:27017
+    volumes:
+      - db-data:/data/db
+
+volumes:
+  db-data:

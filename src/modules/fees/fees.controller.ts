@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { fetchAndStoreFeeEvents, retrieveEventsForIntegrator } from './service';
+import { fetchAndStoreFeeEvents, retrieveEventsForIntegrator } from './fees.service';
 
 export const fetchEvents = async (req: Request, res: Response) => {
   const { fromBlock, toBlock } = req.body;

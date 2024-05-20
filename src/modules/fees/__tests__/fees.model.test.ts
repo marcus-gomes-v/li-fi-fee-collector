@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import FeeEventModel from '../model'; // Adjust the path according to your structure
+import FeeEventModel from '../fees.model'; // Adjust the path according to your structure
 
 describe('FeeEvent Model Test', () => {
   let mongoServer: MongoMemoryServer;

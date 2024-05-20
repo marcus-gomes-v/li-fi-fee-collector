@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
-import config from '../../config';
-import { Web3Provider } from '../../utils/web3';
-import FeeCollector__factory from '../../contracts/FeeCollector__factory';
-import EventFactory from './eventFactory';
+import config from '../config';
+import { Web3Provider } from '../utils/web3';
+import FeeCollector__factory from '../contracts/FeeCollector__factory';
+import EventFactory from '../modules/fees/fees.event.factory';
 
 class BlockchainFacade {
   private provider: ethers.providers.JsonRpcProvider;

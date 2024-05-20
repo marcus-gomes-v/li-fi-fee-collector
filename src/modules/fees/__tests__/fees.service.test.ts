@@ -1,6 +1,6 @@
-import { fetchAndStoreFeeEvents, retrieveEventsForIntegrator } from '../service';
-import { loadFeeCollectorEvents, parseFeeCollectorEvents } from '../events';
-import { saveFeeEvents, getFeeEventsByIntegrator } from '../repository';
+import { fetchAndStoreFeeEvents, retrieveEventsForIntegrator } from '../fees.service';
+import { loadFeeCollectorEvents, parseFeeCollectorEvents } from '../fees.events';
+import { saveFeeEvents, getFeeEventsByIntegrator } from '../fees.repository';
 
 jest.mock('../events');
 jest.mock('../repository');

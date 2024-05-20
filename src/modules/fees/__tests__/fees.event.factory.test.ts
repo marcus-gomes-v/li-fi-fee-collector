@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
-import EventFactory from '../eventFactory';
-import { ParsedFeeCollectedEvents } from '../dto';
+import EventFactory from '../fees.event.factory';
+import { ParsedFeeCollectedEvents } from '../fees.dto';
 
 describe('EventFactory', () => {
   it('should create a ParsedFeeCollectedEvents object with valid event args', () => {

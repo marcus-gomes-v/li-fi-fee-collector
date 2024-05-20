@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import config from '../../config';
-import { FeeCollector__factory } from 'lifi-contract-typings'; 
-import { ParsedFeeCollectedEvents } from './dto';
+import { FeeCollector__factory } from 'lifi-contract-typings';
+import { ParsedFeeCollectedEvents } from './fees.dto';
 
 export const loadFeeCollectorEvents = async (fromBlock: ethers.providers.BlockTag, toBlock: ethers.providers.BlockTag): Promise<ethers.Event[]> => {
   const provider = new ethers.providers.JsonRpcProvider(config.POLYGON_RPC);
@@ -12,12 +12,12 @@ export const loadFeeCollectorEvents = async (fromBlock: ethers.providers.BlockTa
 
 export const parseFeeCollectorEvents = (events: ethers.Event[]): ParsedFeeCollectedEvents[] => {
   return events.map(event => {
-    const parsedEvent = event.decode ? event.decode(event.data, event.topics) : null;
+    const parsedEvent = event.args;
     return {
-      token: parsedEvent?.token,
-      integrator: parsedEvent?.integrator,
-      integratorFee: parsedEvent?.integratorFee,
-      lifiFee: parsedEvent?.lifiFee,
+      token: parsedEvent?._token,
+      integrator: parsedEvent?._integrator,
+      integratorFee: parsedEvent?._integratorFee,
+      lifiFee: parsedEvent?._lifiFee,
     };
   });
 };

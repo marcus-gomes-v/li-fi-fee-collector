@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ParsedFeeCollectedEvents } from './dto';
+import { ParsedFeeCollectedEvents } from './fees.dto';
 
 class EventFactory {
   static createEvent(event: ethers.Event): ParsedFeeCollectedEvents {

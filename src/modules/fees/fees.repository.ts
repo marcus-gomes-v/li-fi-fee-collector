@@ -1,5 +1,5 @@
-import FeeEventModel from './model';
-import { ParsedFeeCollectedEvents } from './dto';
+import FeeEventModel from './fees.model';
+import { ParsedFeeCollectedEvents } from './fees.dto';
 
 export const saveFeeEvents = async (events: ParsedFeeCollectedEvents[]): Promise<void> => {
   await FeeEventModel.insertMany(events.map(event => ({

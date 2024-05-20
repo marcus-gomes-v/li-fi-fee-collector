@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../config';
+import FeeEventModel from '../modules/fees/fees.model'; 
+import { BlockModel } from '../modules/blocks/blocks.model'; 
 
 export class MongoDBAdapter {
   private static instance: MongoDBAdapter;
@@ -18,6 +20,10 @@ export class MongoDBAdapter {
     try {
       await mongoose.connect(config.MONGO_URI);
       console.log('MongoDB connected');
+
+      // Ensure indexes are created
+      await FeeEventModel.ensureIndexes();
+      await BlockModel.ensureIndexes();
     } catch (error) {
       console.error('MongoDB connection error:', error);
     }

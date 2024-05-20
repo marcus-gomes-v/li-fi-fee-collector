@@ -1,4 +1,4 @@
-import { ParsedFeeCollectedEvents } from './dto';
+import { ParsedFeeCollectedEvents } from './fees.dto';
 
 interface EventProcessingStrategy {
   processEvent(event: ParsedFeeCollectedEvents): void;

@@ -1,5 +1,5 @@
-import FeeEventModel from './model';
-import { ParsedFeeCollectedEvents } from './dto';
+import FeeEventModel from './fees.model';
+import { ParsedFeeCollectedEvents } from './fees.dto';
 
 class DatabaseFacade {
   async saveEvents(events: ParsedFeeCollectedEvents[]): Promise<void> {
