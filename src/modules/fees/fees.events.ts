@@ -12,12 +12,21 @@ export const loadFeeCollectorEvents = async (fromBlock: ethers.providers.BlockTa
 
 export const parseFeeCollectorEvents = (events: ethers.Event[]): ParsedFeeCollectedEvents[] => {
   return events.map(event => {
-    const parsedEvent = event.args;
+    if (!event.args || event.args.length < 4) {
+      throw new Error(`Invalid event args: ${JSON.stringify(event)}`);
+    }
+
+    const [token, integrator, integratorFee, lifiFee] = event.args;
+
+    if (typeof token !== 'string' || typeof integrator !== 'string') {
+      throw new Error(`Invalid event arg types: ${JSON.stringify(event.args)}`);
+    }
+
     return {
-      token: parsedEvent?._token,
-      integrator: parsedEvent?._integrator,
-      integratorFee: parsedEvent?._integratorFee,
-      lifiFee: parsedEvent?._lifiFee,
+      token,
+      integrator,
+      integratorFee: ethers.BigNumber.from(integratorFee),
+      lifiFee: ethers.BigNumber.from(lifiFee),
     };
   });
 };
