@@ -3,6 +3,7 @@ import config from '../../config';
 import { loadFeeCollectorEvents, parseFeeCollectorEvents } from './fees.events';
 import { saveFeeEvents, getFeeEventsByIntegrator } from './fees.repository';
 import { getLastProcessedBlock, createOrUpdateBlock } from '../blocks/blocks.repository';
+import { ParsedFeeCollectedEvents } from './fees.dto';
 
 export const fetchAndStoreFeeEvents = async (fromBlock: number, toBlock: number): Promise<void> => {
   try {
@@ -50,10 +51,20 @@ export const startEventPolling = async (): Promise<void> => {
   }
 };
 
-export const retrieveEventsForIntegrator = async (integrator: string) => {
-  return await getFeeEventsByIntegrator(integrator);
-};
+export const retrieveEventsForIntegrator = async (
+  integrator: string,
+  page: number,
+  limit: number
+): Promise<ParsedFeeCollectedEvents[]> => {
+  const events = await getFeeEventsByIntegrator(integrator, page, limit);
 
+  return events.map(event => ({
+    token: event.token,
+    integrator: event.integrator,
+    integratorFee: ethers.BigNumber.from(event.integratorFee),
+    lifiFee: ethers.BigNumber.from(event.lifiFee)
+  }));
+};
 
 const getLatestBlockNumber = async (): Promise<number> => {
   const provider = new ethers.providers.JsonRpcProvider(config.POLYGON_RPC);
