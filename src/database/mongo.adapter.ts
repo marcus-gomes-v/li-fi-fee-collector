@@ -1,27 +1,25 @@
 import mongoose from 'mongoose';
 import config from '../config';
-import FeeEventModel from '../modules/fees/fees.model'; 
-import { BlockModel } from '../modules/blocks/blocks.model'; 
+import FeeEventModel from '../modules/fees/fees.model';
+import { BlockModel } from '../modules/blocks/blocks.model';
 
 export class MongoDBAdapter {
   private static instance: MongoDBAdapter;
+  private connected: boolean = false;
 
   private constructor() { }
 
   public static getInstance(): MongoDBAdapter {
     if (!MongoDBAdapter.instance) {
       MongoDBAdapter.instance = new MongoDBAdapter();
-      MongoDBAdapter.instance.connect();
     }
     return MongoDBAdapter.instance;
   }
 
-  private async connect() {
+  public async connect(uri: string = config.MONGO_URI) {
     try {
-      await mongoose.connect(config.MONGO_URI);
-      console.log('MongoDB connected');
-
-      // Ensure indexes are created
+      await mongoose.connect(uri);
+      this.connected = true;
       await FeeEventModel.ensureIndexes();
       await BlockModel.ensureIndexes();
     } catch (error) {
@@ -30,7 +28,13 @@ export class MongoDBAdapter {
   }
 
   public async disconnect() {
-    await mongoose.disconnect();
-    console.log('MongoDB disconnected');
+    if (this.connected) {
+      await mongoose.disconnect();
+      this.connected = false;
+    }
+  }
+
+  public isConnected(): boolean {
+    return this.connected;
   }
 }
