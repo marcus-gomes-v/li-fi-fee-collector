@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../app';
-import { MongoDBAdapter } from '../database/mongoAdapter';
+import { MongoDBAdapter } from '../database/mongo.adapter';
 
 describe('GET /', () => {
   beforeAll(async () => {

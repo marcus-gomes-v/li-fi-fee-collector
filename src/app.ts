@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import modules from './modules';
-import { MongoDBAdapter } from './database/mongoAdapter';
+import { MongoDBAdapter } from './database/mongo.adapter';
 
 const app = express();
 

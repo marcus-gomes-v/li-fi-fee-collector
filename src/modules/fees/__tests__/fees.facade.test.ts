@@ -1,4 +1,4 @@
-import BlockchainFacade from '../../../blockchain/blockchainFacade';
+import BlockchainFacade from '../../../blockchain/blockchain.facade';
 import DatabaseFacade from '../fees.database.facade';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';

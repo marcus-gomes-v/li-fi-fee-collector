@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import config from '../config';
 import { Web3Provider } from '../utils/web3';
-import FeeCollector__factory from '../contracts/FeeCollector__factory';
+import FeeCollector__factory from '../contracts/fee.collector.factory';
 import EventFactory from '../modules/fees/fees.event.factory';
 
 class BlockchainFacade {
