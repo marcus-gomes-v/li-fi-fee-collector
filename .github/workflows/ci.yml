@@ -32,3 +32,14 @@ jobs:
 
       - name: Run tests
         run: yarn test
+
+      - name: Run coverage
+        run: yarn test --coverage
+
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/lcov.info
+          parallel-finished: true
+          coveralls-endpoint: https://coveralls.io
