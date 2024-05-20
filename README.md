@@ -1,6 +1,12 @@
 # LI.FI Fee Collector
 
-![CI](https://github.com/marcus-gomes-v/li-fi-fee-collector/actions/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/marcus-gomes-v/li-fi-fee-collector/actions/workflows/ci.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/marcus-gomes-v/li-fi-fee-collector/badge.svg?branch=main)](https://coveralls.io/github/marcus-gomes-v/li-fi-fee-collector?branch=main)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Node](https://img.shields.io/badge/node-20.11.1-brightgreen)
+![Last Commit](https://img.shields.io/github/last-commit/marcus-gomes-v/li-fi-fee-collector)
+![GitHub issues](https://img.shields.io/github/issues/marcus-gomes-v/li-fi-fee-collector)
+
 
 This project is a take-home assignment for the Senior Backend Engineer role at LI.FI. It involves building a tool to scrape emitted events from a smart contract, store them in a MongoDB database, and provide an API to retrieve the events. The project is structured using SOLID principles and various design patterns to ensure clean, maintainable, and scalable code.
 
