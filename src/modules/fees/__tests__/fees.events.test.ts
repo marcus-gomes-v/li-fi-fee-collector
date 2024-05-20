@@ -6,7 +6,7 @@ jest.mock('../fees.events', () => ({
   loadFeeCollectorEvents: jest.fn(),
 }));
 
-describe('events', () => {
+describe('Fee Events', () => {
   const mockEvents: Event[] = [
     {
       args: [

@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import EventFactory from '../fees.event.factory';
 import { ParsedFeeCollectedEvents } from '../fees.dto';
 
-describe('EventFactory', () => {
+describe('Fee Event Factory', () => {
   it('should create a ParsedFeeCollectedEvents object with valid event args', () => {
     const event = createMockEvent([
       '0xTokenAddress',
