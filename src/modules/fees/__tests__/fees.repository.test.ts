@@ -4,7 +4,7 @@ import { BigNumber, ethers } from 'ethers';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-describe('repository', () => {
+describe('Fees Repository', () => {
   let mongoServer: MongoMemoryServer;
 
   beforeAll(async () => {
