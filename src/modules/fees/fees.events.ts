@@ -1,7 +1,7 @@
-import { ethers } from 'ethers';
-import config from '../../config';
-import { FeeCollector__factory } from 'lifi-contract-typings';
-import { ParsedFeeCollectedEvents } from './fees.dto';
+import { ethers } from "ethers";
+import config from "../../config";
+import { FeeCollector__factory } from "lifi-contract-typings";
+import { ParsedFeeCollectedEvents } from "./fees.dto";
 
 export const loadFeeCollectorEvents = async (fromBlock: ethers.providers.BlockTag, toBlock: ethers.providers.BlockTag): Promise<ethers.Event[]> => {
   const provider = new ethers.providers.JsonRpcProvider(config.POLYGON_RPC);
@@ -18,7 +18,7 @@ export const parseFeeCollectorEvents = (events: ethers.Event[]): ParsedFeeCollec
 
     const [token, integrator, integratorFee, lifiFee] = event.args;
 
-    if (typeof token !== 'string' || typeof integrator !== 'string') {
+    if (typeof token !== "string" || typeof integrator !== "string") {
       throw new Error(`Invalid event arg types: ${JSON.stringify(event.args)}`);
     }
 

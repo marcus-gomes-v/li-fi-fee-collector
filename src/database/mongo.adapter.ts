@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import config from '../config';
-import FeeEventModel from '../modules/fees/fees.model';
-import { BlockModel } from '../modules/blocks/blocks.model';
+import mongoose from "mongoose";
+import config from "../config";
+import FeeEventModel from "../modules/fees/fees.model";
+import { BlockModel } from "../modules/blocks/blocks.model";
 
 export class MongoDBAdapter {
   private static instance: MongoDBAdapter;
@@ -26,7 +26,7 @@ export class MongoDBAdapter {
       if (error instanceof Error) {
         throw new Error(`MongoDB connection error: ${error.message}`);
       } else {
-        throw new Error('Unknown MongoDB connection error');
+        throw new Error("Unknown MongoDB connection error");
       }
     }
   }

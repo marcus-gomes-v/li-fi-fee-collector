@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
+import { getModelForClass, prop } from "@typegoose/typegoose";
 
 class Block {
   @prop({ required: true, unique: true })

@@ -1,9 +1,9 @@
-import request from 'supertest';
-import app from '../app';
-import { MongoDBAdapter } from '../database/mongo.adapter';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import request from "supertest";
+import app from "../app";
+import { MongoDBAdapter } from "../database/mongo.adapter";
+import { MongoMemoryServer } from "mongodb-memory-server";
 
-describe('GET /', () => {
+describe("GET /", () => {
   let mongoServer: MongoMemoryServer;
   let mongoDBAdapter: MongoDBAdapter;
 
@@ -23,9 +23,9 @@ describe('GET /', () => {
     await mongoServer.stop();
   });
 
-  it('should return Hello, World!', async () => {
-    const res = await request(app).get('/');
+  it("should return Hello, World!", async () => {
+    const res = await request(app).get("/");
     expect(res.statusCode).toEqual(200);
-    expect(res.text).toEqual('Hello, World!');
+    expect(res.text).toEqual("Hello, World!");
   });
 });

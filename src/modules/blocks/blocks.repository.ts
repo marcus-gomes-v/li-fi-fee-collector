@@ -1,4 +1,4 @@
-import { BlockModel } from './blocks.model';
+import { BlockModel } from "./blocks.model";
 
 export const getLastProcessedBlock = async (): Promise<number | null> => {
   const block = await BlockModel.findOne().sort({ number: -1 });

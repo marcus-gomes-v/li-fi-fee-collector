@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import { BlockModel } from '../blocks.model';
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import { BlockModel } from "../blocks.model";
 
-describe('BlockModel Model Test', () => {
+describe("BlockModel Model Test", () => {
   let mongoServer: MongoMemoryServer;
 
   beforeAll(async () => {
@@ -16,7 +16,7 @@ describe('BlockModel Model Test', () => {
     await mongoServer.stop();
   });
 
-  it('should create a new block', async () => {
+  it("should create a new block", async () => {
     const block = new BlockModel({
       number: 123456,
       eventCount: 10,

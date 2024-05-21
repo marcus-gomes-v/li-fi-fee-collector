@@ -1,9 +1,9 @@
-import { BigNumber, providers } from 'ethers';
-import config from '../../config';
-import { loadFeeCollectorEvents, parseFeeCollectorEvents } from './fees.events';
-import { saveFeeEvents, getFeeEventsByIntegrator } from './fees.repository';
-import { getLastProcessedBlock, createOrUpdateBlock } from '../blocks/blocks.repository';
-import { ParsedFeeCollectedEvents } from './fees.dto';
+import { BigNumber, providers } from "ethers";
+import config from "../../config";
+import { loadFeeCollectorEvents, parseFeeCollectorEvents } from "./fees.events";
+import { saveFeeEvents, getFeeEventsByIntegrator } from "./fees.repository";
+import { getLastProcessedBlock, createOrUpdateBlock } from "../blocks/blocks.repository";
+import { ParsedFeeCollectedEvents } from "./fees.dto";
 
 export const fetchAndStoreFeeEvents = async (fromBlock: number, toBlock: number): Promise<void> => {
   try {
@@ -20,7 +20,7 @@ export const fetchAndStoreFeeEvents = async (fromBlock: number, toBlock: number)
       currentFromBlock = currentToBlock + 1;
     }
   } catch (error) {
-    console.error('Error fetching and storing fee events:', error);
+    console.error("Error fetching and storing fee events:", error);
     throw error;
   }
 };
@@ -44,14 +44,14 @@ export const startEventPolling = async (): Promise<void> => {
           lastProcessedBlock = latestBlock;
         }
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
       }
     };
 
     setInterval(fetchEvents, config.POLL_INTERVAL);
     await fetchEvents(); // Fetch immediately on startup
   } catch (error) {
-    console.error('Error starting event polling:', error);
+    console.error("Error starting event polling:", error);
   }
 };
 

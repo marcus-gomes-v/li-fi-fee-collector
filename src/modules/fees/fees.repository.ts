@@ -1,6 +1,6 @@
-import FeeEventModel from './fees.model';
-import { ParsedFeeCollectedEvents } from './fees.dto';
-import { BigNumber } from 'ethers';
+import FeeEventModel from "./fees.model";
+import { ParsedFeeCollectedEvents } from "./fees.dto";
+import { BigNumber } from "ethers";
 
 export const saveFeeEvents = async (events: ParsedFeeCollectedEvents[]): Promise<void> => {
   await FeeEventModel.insertMany(events.map(event => ({

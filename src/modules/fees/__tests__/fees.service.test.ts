@@ -1,17 +1,17 @@
-import { fetchAndStoreFeeEvents, retrieveEventsForIntegrator } from '../fees.service';
-import { loadFeeCollectorEvents, parseFeeCollectorEvents } from '../fees.events';
-import { saveFeeEvents, getFeeEventsByIntegrator } from '../fees.repository';
-import { createOrUpdateBlock, getLastProcessedBlock } from '../../blocks/blocks.repository';
-import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import { BigNumber } from 'ethers';
-import { ParsedFeeCollectedEvents } from '../fees.dto';
+import { fetchAndStoreFeeEvents, retrieveEventsForIntegrator } from "../fees.service";
+import { loadFeeCollectorEvents, parseFeeCollectorEvents } from "../fees.events";
+import { saveFeeEvents, getFeeEventsByIntegrator } from "../fees.repository";
+import { createOrUpdateBlock } from "../../blocks/blocks.repository";
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import { BigNumber } from "ethers";
+import { ParsedFeeCollectedEvents } from "../fees.dto";
 
-jest.mock('../fees.events');
-jest.mock('../fees.repository');
-jest.mock('../../blocks/blocks.repository');
-jest.mock('ethers', () => ({
-  ...jest.requireActual('ethers'),
+jest.mock("../fees.events");
+jest.mock("../fees.repository");
+jest.mock("../../blocks/blocks.repository");
+jest.mock("ethers", () => ({
+  ...jest.requireActual("ethers"),
   providers: {
     JsonRpcProvider: jest.fn().mockImplementation(() => ({
       getBlockNumber: jest.fn().mockResolvedValue(200),
@@ -19,7 +19,7 @@ jest.mock('ethers', () => ({
   },
 }));
 
-describe('Fee Service', () => {
+describe("Fee Service", () => {
   let mongoServer: MongoMemoryServer;
 
   beforeAll(async () => {
@@ -42,12 +42,12 @@ describe('Fee Service', () => {
     jest.clearAllTimers();
   });
 
-  it('should fetch and store fee events', async () => {
+  it("should fetch and store fee events", async () => {
     const mockEvents: ParsedFeeCollectedEvents[] = [{
-      token: '0xTokenAddress',
-      integrator: 'test-integrator',
-      integratorFee: BigNumber.from('1000'),
-      lifiFee: BigNumber.from('2000'),
+      token: "0xTokenAddress",
+      integrator: "test-integrator",
+      integratorFee: BigNumber.from("1000"),
+      lifiFee: BigNumber.from("2000"),
       blockNumber: 12345
     }];
     (loadFeeCollectorEvents as jest.Mock).mockResolvedValue(mockEvents);
@@ -63,48 +63,48 @@ describe('Fee Service', () => {
     expect(createOrUpdateBlock).toHaveBeenNthCalledWith(2, 1, 0);
   }, 20000);
 
-  it('should handle errors during fetching and storing fee events', async () => {
-    const error = new Error('Failed to load events');
+  it("should handle errors during fetching and storing fee events", async () => {
+    const error = new Error("Failed to load events");
     (loadFeeCollectorEvents as jest.Mock).mockRejectedValue(error);
 
     console.error = jest.fn();
 
-    await expect(fetchAndStoreFeeEvents(0, 100)).rejects.toThrow('Failed to load events');
-    expect(console.error).toHaveBeenCalledWith('Error fetching and storing fee events:', error);
+    await expect(fetchAndStoreFeeEvents(0, 100)).rejects.toThrow("Failed to load events");
+    expect(console.error).toHaveBeenCalledWith("Error fetching and storing fee events:", error);
   });
 
-  it('should retrieve events for an integrator', async () => {
+  it("should retrieve events for an integrator", async () => {
     const mockEvents: ParsedFeeCollectedEvents[] = [
       {
-        token: '0xTokenAddress',
-        integrator: 'test-integrator',
-        integratorFee: BigNumber.from('1000'),
-        lifiFee: BigNumber.from('2000'),
+        token: "0xTokenAddress",
+        integrator: "test-integrator",
+        integratorFee: BigNumber.from("1000"),
+        lifiFee: BigNumber.from("2000"),
         blockNumber: 12345
       },
     ];
     (getFeeEventsByIntegrator as jest.Mock).mockResolvedValue(mockEvents);
 
-    const events = await retrieveEventsForIntegrator('test-integrator', 1, 10);
+    const events = await retrieveEventsForIntegrator("test-integrator", 1, 10);
 
-    expect(getFeeEventsByIntegrator).toHaveBeenCalledWith('test-integrator', 1, 10);
+    expect(getFeeEventsByIntegrator).toHaveBeenCalledWith("test-integrator", 1, 10);
     expect(events).toEqual(mockEvents);
   });
 
-  it('should create and update blocks with events correctly', async () => {
+  it("should create and update blocks with events correctly", async () => {
     const mockEvents: ParsedFeeCollectedEvents[] = [
       {
-        token: '0xTokenAddress1',
-        integrator: 'test-integrator',
-        integratorFee: BigNumber.from('1000'),
-        lifiFee: BigNumber.from('2000'),
+        token: "0xTokenAddress1",
+        integrator: "test-integrator",
+        integratorFee: BigNumber.from("1000"),
+        lifiFee: BigNumber.from("2000"),
         blockNumber: 0
       },
       {
-        token: '0xTokenAddress2',
-        integrator: 'test-integrator',
-        integratorFee: BigNumber.from('1000'),
-        lifiFee: BigNumber.from('2000'),
+        token: "0xTokenAddress2",
+        integrator: "test-integrator",
+        integratorFee: BigNumber.from("1000"),
+        lifiFee: BigNumber.from("2000"),
         blockNumber: 1
       }
     ];
@@ -121,7 +121,7 @@ describe('Fee Service', () => {
     expect(createOrUpdateBlock).toHaveBeenNthCalledWith(2, 1, 1);
   });
 
-  it('should create and update blocks with no events correctly', async () => {
+  it("should create and update blocks with no events correctly", async () => {
     const mockEvents: ParsedFeeCollectedEvents[] = [];
     (loadFeeCollectorEvents as jest.Mock).mockResolvedValue(mockEvents);
     (parseFeeCollectorEvents as jest.Mock).mockReturnValue(mockEvents);

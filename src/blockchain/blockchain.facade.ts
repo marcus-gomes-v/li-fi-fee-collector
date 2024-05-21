@@ -1,8 +1,8 @@
-import { ethers } from 'ethers';
-import config from '../config';
-import { Web3Provider } from '../utils/web3';
-import FeeCollector__factory from '../contracts/fee.collector.factory';
-import EventFactory from '../modules/fees/fees.event.factory';
+import { ethers } from "ethers";
+import config from "../config";
+import { Web3Provider } from "../utils/web3";
+import FeeCollector__factory from "../contracts/fee.collector.factory";
+import EventFactory from "../modules/fees/fees.event.factory";
 
 class BlockchainFacade {
   private provider: ethers.providers.JsonRpcProvider;
@@ -19,11 +19,11 @@ class BlockchainFacade {
       return await this.feeCollector.queryFilter(filter, fromBlock, toBlock);
     } catch (error) {
       if (error instanceof Error) {
-        console.error('Error loading events from blockchain:', error.message);
+        console.error("Error loading events from blockchain:", error.message);
         throw new Error(`Error loading events: ${error.message}`);
       } else {
-        console.error('Unknown error loading events from blockchain:', error);
-        throw new Error('Unknown error loading events');
+        console.error("Unknown error loading events from blockchain:", error);
+        throw new Error("Unknown error loading events");
       }
     }
   }
@@ -33,11 +33,11 @@ class BlockchainFacade {
       return EventFactory.createEvent(event);
     } catch (error) {
       if (error instanceof Error) {
-        console.error('Error parsing event:', error.message);
+        console.error("Error parsing event:", error.message);
         throw new Error(`Error parsing event: ${error.message}`);
       } else {
-        console.error('Unknown error parsing event:', error);
-        throw new Error('Unknown error parsing event');
+        console.error("Unknown error parsing event:", error);
+        throw new Error("Unknown error parsing event");
       }
     }
   }

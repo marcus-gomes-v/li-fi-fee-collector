@@ -1,10 +1,10 @@
-import { saveFeeEvents, getFeeEventsByIntegrator } from '../fees.repository';
-import { ParsedFeeCollectedEvents } from '../fees.dto';
-import { BigNumber, ethers } from 'ethers';
-import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { saveFeeEvents, getFeeEventsByIntegrator } from "../fees.repository";
+import { ParsedFeeCollectedEvents } from "../fees.dto";
+import { BigNumber } from "ethers";
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
 
-describe('Fees Repository', () => {
+describe("Fees Repository", () => {
   let mongoServer: MongoMemoryServer;
 
   beforeAll(async () => {
@@ -18,11 +18,11 @@ describe('Fees Repository', () => {
     await mongoServer.stop();
   });
 
-  test('saveFeeEvents should save events to the database', async () => {
+  test("saveFeeEvents should save events to the database", async () => {
     const events: ParsedFeeCollectedEvents[] = [
       {
-        token: '0xTokenAddress',
-        integrator: 'example-integrator',
+        token: "0xTokenAddress",
+        integrator: "example-integrator",
         integratorFee: BigNumber.from(1000),
         lifiFee: BigNumber.from(100),
         blockNumber: 123456,
@@ -30,27 +30,27 @@ describe('Fees Repository', () => {
     ];
     await saveFeeEvents(events);
 
-    const savedEvents = await getFeeEventsByIntegrator('example-integrator', 1, 10);
+    const savedEvents = await getFeeEventsByIntegrator("example-integrator", 1, 10);
     expect(savedEvents).toBeInstanceOf(Array);
     expect(savedEvents.length).toBe(1);
     expect(savedEvents[0]).toMatchObject({
-      token: '0xTokenAddress',
-      integrator: 'example-integrator',
+      token: "0xTokenAddress",
+      integrator: "example-integrator",
       integratorFee: BigNumber.from(1000),
       lifiFee: BigNumber.from(100),
       blockNumber: 123456,
     });
   });
 
-  test('getFeeEventsByIntegrator should retrieve events for a given integrator', async () => {
-    const integrator = 'example-integrator';
+  test("getFeeEventsByIntegrator should retrieve events for a given integrator", async () => {
+    const integrator = "example-integrator";
     const events = await getFeeEventsByIntegrator(integrator, 1, 10);
     expect(events).toBeInstanceOf(Array);
     expect(events.length).toBe(1);  // Adjust this based on the actual number of events
-    expect(events[0]).toHaveProperty('token');
-    expect(events[0]).toHaveProperty('integrator');
-    expect(events[0]).toHaveProperty('integratorFee');
-    expect(events[0]).toHaveProperty('lifiFee');
-    expect(events[0]).toHaveProperty('blockNumber');
+    expect(events[0]).toHaveProperty("token");
+    expect(events[0]).toHaveProperty("integrator");
+    expect(events[0]).toHaveProperty("integratorFee");
+    expect(events[0]).toHaveProperty("lifiFee");
+    expect(events[0]).toHaveProperty("blockNumber");
   });
 });

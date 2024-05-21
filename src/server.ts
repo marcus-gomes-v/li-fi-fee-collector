@@ -1,6 +1,6 @@
-import app from './app';
-import { MongoDBAdapter } from './database/mongo.adapter';
-import { startEventPolling } from './modules/fees/fees.service';
+import app from "./app";
+import { MongoDBAdapter } from "./database/mongo.adapter";
+import { startEventPolling } from "./modules/fees/fees.service";
 
 const port = process.env.PORT || 3000;
 
@@ -12,17 +12,17 @@ const startServer = async () => {
       console.log(`Server running on port ${port}`);
       startEventPolling().catch((error) => {
         if (error instanceof Error) {
-          console.error('Error starting event polling:', error.message);
+          console.error("Error starting event polling:", error.message);
         } else {
-          console.error('Unknown error starting event polling:', error);
+          console.error("Unknown error starting event polling:", error);
         }
       });
     });
   } catch (error) {
     if (error instanceof Error) {
-      console.error('Failed to start the server:', error.message);
+      console.error("Failed to start the server:", error.message);
     } else {
-      console.error('Unknown error starting the server:', error);
+      console.error("Unknown error starting the server:", error);
     }
     process.exit(1);
   }

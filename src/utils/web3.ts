@@ -1,5 +1,5 @@
-import { ethers } from 'ethers';
-import config from '../config';
+import { ethers } from "ethers";
+import config from "../config";
 
 class Web3Provider {
   private static instance: ethers.providers.JsonRpcProvider;
