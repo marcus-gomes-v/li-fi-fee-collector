@@ -14,12 +14,32 @@ class BlockchainFacade {
   }
 
   async loadEvents(fromBlock: number, toBlock: number): Promise<ethers.Event[]> {
-    const filter = this.feeCollector.filters.FeesCollected();
-    return await this.feeCollector.queryFilter(filter, fromBlock, toBlock);
+    try {
+      const filter = this.feeCollector.filters.FeesCollected();
+      return await this.feeCollector.queryFilter(filter, fromBlock, toBlock);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error loading events from blockchain:', error.message);
+        throw new Error(`Error loading events: ${error.message}`);
+      } else {
+        console.error('Unknown error loading events from blockchain:', error);
+        throw new Error('Unknown error loading events');
+      }
+    }
   }
 
   parseEvent(event: ethers.Event) {
-    return EventFactory.createEvent(event);
+    try {
+      return EventFactory.createEvent(event);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error parsing event:', error.message);
+        throw new Error(`Error parsing event: ${error.message}`);
+      } else {
+        console.error('Unknown error parsing event:', error);
+        throw new Error('Unknown error parsing event');
+      }
+    }
   }
 }
 

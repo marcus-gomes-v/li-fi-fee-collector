@@ -23,7 +23,11 @@ export class MongoDBAdapter {
       await FeeEventModel.ensureIndexes();
       await BlockModel.ensureIndexes();
     } catch (error) {
-      throw new Error('MongoDB connection error');
+      if (error instanceof Error) {
+        throw new Error(`MongoDB connection error: ${error.message}`);
+      } else {
+        throw new Error('Unknown MongoDB connection error');
+      }
     }
   }
 
