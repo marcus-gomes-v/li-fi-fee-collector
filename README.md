@@ -53,37 +53,6 @@ docker-compose up --build
 
 This command will build the Docker images and start the services defined in `docker-compose.yml`. The application will be accessible at `http://localhost:3000`.
 
-## Debugging with VS Code
-
-To debug the application using VS Code, follow these steps:
-
-1. Open the project in VS Code.
-2. Go to the Debug panel.
-3. Select the "Attach to Node.js (Docker)" configuration.
-4. Start debugging.
-
-Ensure your `.vscode/launch.json` is configured as follows:
-
-```json
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Attach to Node.js (Docker)",
-      "type": "node",
-      "request": "attach",
-      "port": 9229,
-      "address": "localhost",
-      "localRoot": "${workspaceFolder}/src",
-      "remoteRoot": "/app/src",
-      "protocol": "inspector",
-      "restart": true,
-      "sourceMaps": true,
-      "skipFiles": ["<node_internals>/**"]
-    }
-  ]
-}
-```
 
 ## API Endpoints
 
@@ -169,38 +138,34 @@ Ensure your `.github/workflows/ci.yml` is configured as follows:
 ```yaml
 name: CI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mongo:
-        image: mongo:4.2.0
-        ports:
-          - 27017:27017
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 20.11.1
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.11.1'
 
-      - name: Install dependencies
-        run: yarn install
+    - name: Install dependencies
+      run: yarn install
 
-      - name: Run tests
-        run: yarn test
+    - name: Run ESLint
+      run: yarn lint
+
+    - name: Run tests and generate coverage
+      run: yarn test -- --coverage
+
+    - name: Upload coverage to Coveralls
+      uses: coverallsapp/github-action@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: coverage/lcov.info
 ```
 
 ## Pagination
